@@ -1,0 +1,60 @@
+.tbl-sells{
+
+  height: 300px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+.totales{
+  position: absolute;
+  right:380px;
+  width: 150px;
+  margin-top: 11px;
+}
+.totales input{
+
+  border-radius: 5px;
+}
+#search{
+  position: relative;
+  left:80%;
+}
+
+
+@media (min-width: 768px) {
+  .totales {
+    right: 5%;
+  }
+}
+@media (min-width: 992px) {
+  .totales{
+    right: 10%;
+  }
+  #search{
+    left:91%;
+  }
+}
+@media (min-width: 1200px) {
+  .totales{
+    right: 14%;
+  }
+  #search{
+    left:91%;
+  }
+}
+@media (min-width: 1800px) {
+  .totales{
+    right: 20%;
+  }
+  #search{
+    left:91%;
+  }
+}
+hr{
+  border-top: 3px solid #4bceb4;
+  border-bottom: 2px dashed #4bceb4;
+  border-left:none;
+  border-right:none;
+  height: 6px; 
+}
