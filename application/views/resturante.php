@@ -48,7 +48,7 @@
            <h4 class="modal-title">Lista de Articulos</h4>
          </div>
          <div class="modal-body">
-          <input type="search" class="search" placeholder="Busqueda" autofocus>
+          <input type="search" class="search " placeholder="Busqueda" autofocus v-on:keyup="datesearch" v-model="lookfor">
            <table class="table ">
              <thead>
                <tr>
@@ -65,6 +65,11 @@
                </tr>
              </tbody>
            </table>
+           <div class=" text-center v-paginator">
+             <button class="btn btn-default" v-on:click="cargarArticulos('', (parseInt(pagina) - parseInt(1) ) )" :disabled=" pagina <= 1 ? true : false"> Anterior </button>
+             <span>Pagina {{pagina}} de {{ totalpag }}</span>
+             <button class="btn btn-default" v-on:click="cargarArticulos('', (parseInt(pagina) + parseInt(1) ) )" :disabled=" pagina == totalpag ? true : false"> Siguiente</button>
+           </div>
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

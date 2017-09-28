@@ -126,7 +126,10 @@ class Restaurante extends CI_Controller
     echo json_encode($all);
   }
   public function nuevo_articulo(){
-
+    $nombreArticulo = $this->input->post('nombreArticulo');
+    $precio = $this->input->post('precio');
+    $alta = $this->restaurante_model->nuevo_articulo($nombreArticulo,$precio);
+    echo $alta;
   }
   public function editarProducto(){
     $datos = array('descripcion' =>  $this->input->post('name'), 'precio' => $this->input->post('price'));

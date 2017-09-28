@@ -84,10 +84,18 @@ class Restaurante_model extends CI_Model
     }
     //eturn $this->db->get('venta')->result();
   }
-  public function nuevo_articulo($nuevo){
+  public function nuevo_articulo($nombre,$precio){
     $nuevo_articulo = array(
-
+      'descripcion' => $nombre,
+      'precio' => $precio
     );
+    $nuevo = $this->db->insert('productos',$nuevo_articulo);
+    if($nuevo){
+       return true;
+     }
+     else{
+       return false;
+     }
   }
   public function editArt($datos,$id){
     $this->db->where('idproductos',$id);

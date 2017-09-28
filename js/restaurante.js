@@ -5,11 +5,15 @@ var resturant = new Vue({
     listart:null,
     carrito:[],
     total: 0,
+    totalpag:null,
     folioVenta: 0,
+    pagina:1,
+    lookfor:null,
   },
   created: function () {
      this.articules();
      this.folios();
+     this.totalPaginas();
   },
   methods:{
     folios: function(){
@@ -19,12 +23,26 @@ var resturant = new Vue({
         self.folioVenta =  res.idventa != null ? parseInt(res.idventa)+1 : 1;
       });
     },
-    articules:function(){
+    articules:function(txt_buscar, xpager){
       var self = this;
       var productos = new Array();
-      $.get(base_url+'restaurante/getproducts',function(data){
+      var self = this;
+      this.pagina = xpager || this.pagina;
+      $.get(base_url+'restaurante/getAllproducts',{'txt_buscar':txt_buscar,'xpager':xpager}, function( data ){
          self.listart = JSON.parse(data);
        });
+    },
+    totalPaginas:function(){
+      self  = this
+      //we get the total of register of reservations
+      $.get(base_url+'restaurante/maxProduct',function( data ){
+        //we obtain pages to show
+        self.totalpag = Math.ceil(data/12);
+      });
+    },
+    datesearch:function(){
+      self = this;
+      self.articules(self.lookfor);
     },
     add:function(id){
       self = this;
@@ -97,17 +115,16 @@ var resturant = new Vue({
          success:function(data) {
            alertify.success('Venta Realizada');
            self.createTicket();
-          
+           setTimeout(function(){
+             location.reload();
+           },500);
          },
          error:function(error){
            alertify.error('error');
-
          }
        });
-     })
-     .set('oncancel',function(){
-
      });
+
    },
    createTicket:function(){
       var ticket =  window.open(base_url+"restaurante/tickets", "ticket", "scrollbars=yes,resizable=yes,top=80,left=500,width=700,height=600");
