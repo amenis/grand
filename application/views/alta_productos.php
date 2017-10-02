@@ -52,7 +52,7 @@
               <h4 class="modal-title">Alta de Producto</h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" role="form" >
+              <form class="form-horizontal" role="form" id="altaArticulo" >
                 <div class="form-group">
                   <label class="control-label col-sm-2">Nombre</label>
                   <div class="col-sm-4">
@@ -67,7 +67,7 @@
                 </div>
 
                 <div style="margin-left:35%;">
-                  <button type="button"  class="btn btn-success" >Guardar</button>
+                  <button type="button"  class="btn btn-success" v-on:click="nuevoarticulo" >Guardar</button>
                 </div>
               </form>
             </div>
@@ -144,8 +144,18 @@
       self = this;
       self.cargarArticulos(self.lookfor);
     },
-    nuevo:function(){
-      $.post(base_url+'restaurante/nuevo_articulo',function(data){});
+    nuevoarticulo:function(){
+      var self = this;
+      var mensaje = "";
+      $.post(base_url+'restaurante/nuevo_articulo',{'nombreArticulo':self.frm_datos['np'],'precio':self.frm_datos['precio']},function(data){
+        if(data == true){
+          mensaje = 'Articulo se ha agregado correctamente';
+        }
+        else{
+          mensaje = "Hubo un error al guardar el producto";
+        }
+        alertify.alert(mensaje).set('onok',function(){ location.reload(); });
+      });
     },
     editarProducto:function(event){
       console.log(this.editArt[0]['idproductos']);
